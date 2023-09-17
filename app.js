@@ -9,6 +9,8 @@ const operationList = ["+", "-", "*", "/"];
 const screenDisplay = document.getElementsByClassName('calculator-screen')[0];
 const numbers = Array.from(document.getElementsByClassName('number-button'));
 const operators = Array.from(document.getElementsByClassName('function-button'));
+const evaluateButton = document.getElementsByClassName('evaluate-button')[0];
+const decimalButton = document.getElementsByClassName('decimal-button')[0];
 
 const add = (x, y) => { return x + y };
 const subtract = (x, y) => { return x - y };
@@ -20,16 +22,16 @@ const operate = (operation, x, y) => {
     y = Number(y);
     switch (operation) {
         case "+":
-            return add(x, y);
+            return add(x, y).toString();
 
         case "-":
-            return subtract(x, y);
+            return subtract(x, y).toString();
 
         case "*":
-            return multiply(x, y);
+            return multiply(x, y).toString();
 
         case "/":
-            return divide(x, y);
+            return divide(x, y).toString();
 
         default:
             return
@@ -59,6 +61,14 @@ operators.forEach(numberButton => {
     });
 });
 
+evaluateButton.addEventListener('click', () => {
+    evaluate();
+});
+
+decimalButton.addEventListener('click', () => {
+    addDecimal();
+});
+
 const registerInput = (buttonValue) => {
     if (operationList.includes(buttonValue)) {
         if (rightOperand) {
@@ -66,21 +76,45 @@ const registerInput = (buttonValue) => {
             rightOperand = "";
         }
         operator = buttonValue;
-        display = `${leftOperand} ${operator} ${rightOperand}`
-        screenDisplay.textContent = display;
+        screenDisplay.textContent = `${leftOperand} ${operator} ${rightOperand}`;
         return
     }
     try {
-        const numericValue = parseFloat(buttonValue);
-        if (!operator) leftOperand += numericValue;
-        else rightOperand += numericValue;
-        display = `${leftOperand} ${operator} ${rightOperand}`
-        screenDisplay.textContent = display;
+        const numericValue = parseInt(buttonValue);
+        if (!operator) leftOperand += numericValue.toString();
+        else rightOperand += numericValue.toString();
+        screenDisplay.textContent = `${leftOperand} ${operator} ${rightOperand}`;
     }
     catch {
-
+        screenDisplay.textContent = `ERROR`;
+        leftOperand = "";
+        rightOperand = "";
+        operator = "";
     }
     return
+}
+
+const evaluate = () => {
+    if (rightOperand) {
+        leftOperand = operate(operator, leftOperand, rightOperand);
+    }
+    rightOperand = "";
+    operator = "";
+    screenDisplay.textContent = `${leftOperand}`;
+    return
+}
+
+const addDecimal = () => {
+    if (operator) {
+        if (!rightOperand.includes(".")) {
+            rightOperand += ".";
+        }
+    } else {
+        if (!leftOperand.includes(".")) {
+            leftOperand += ".";
+        }
+    }
+    screenDisplay.textContent = `${leftOperand} ${operator} ${rightOperand}`;
 }
 
 resetValues();
