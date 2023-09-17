@@ -10,6 +10,7 @@ const screenDisplay = document.getElementsByClassName('calculator-screen')[0];
 const numbers = Array.from(document.getElementsByClassName('number-button'));
 const operators = Array.from(document.getElementsByClassName('function-button'));
 const evaluateButton = document.getElementsByClassName('evaluate-button')[0];
+const decimalButton = document.getElementsByClassName('decimal-button')[0];
 
 const add = (x, y) => { return x + y };
 const subtract = (x, y) => { return x - y };
@@ -21,16 +22,16 @@ const operate = (operation, x, y) => {
     y = Number(y);
     switch (operation) {
         case "+":
-            return add(x, y);
+            return add(x, y).toString();
 
         case "-":
-            return subtract(x, y);
+            return subtract(x, y).toString();
 
         case "*":
-            return multiply(x, y);
+            return multiply(x, y).toString();
 
         case "/":
-            return divide(x, y);
+            return divide(x, y).toString();
 
         default:
             return
@@ -62,7 +63,11 @@ operators.forEach(numberButton => {
 
 evaluateButton.addEventListener('click', () => {
     evaluate();
-})
+});
+
+decimalButton.addEventListener('click', () => {
+    addDecimal();
+});
 
 const registerInput = (buttonValue) => {
     if (operationList.includes(buttonValue)) {
@@ -75,7 +80,7 @@ const registerInput = (buttonValue) => {
         return
     }
     try {
-        const numericValue = parseFloat(buttonValue);
+        const numericValue = parseInt(buttonValue);
         if (!operator) leftOperand += numericValue.toString();
         else rightOperand += numericValue.toString();
         screenDisplay.textContent = `${leftOperand} ${operator} ${rightOperand}`;
@@ -96,7 +101,20 @@ const evaluate = () => {
     rightOperand = "";
     operator = "";
     screenDisplay.textContent = `${leftOperand}`;
-    console.log("evaluate", rightOperand, operator)
     return
 }
+
+const addDecimal = () => {
+    if (operator) {
+        if (!rightOperand.includes(".")) {
+            rightOperand += ".";
+        }
+    } else {
+        if (!leftOperand.includes(".")) {
+            leftOperand += ".";
+        }
+    }
+    screenDisplay.textContent = `${leftOperand} ${operator} ${rightOperand}`;
+}
+
 resetValues();
