@@ -12,6 +12,9 @@ const operators = Array.from(document.getElementsByClassName('function-button'))
 const evaluateButton = document.getElementsByClassName('evaluate-button')[0];
 const decimalButton = document.getElementsByClassName('decimal-button')[0];
 
+const clearEntryButton = document.getElementById('clear-entry');
+const clearButton = document.getElementById('clear');
+
 const add = (x, y) => { return x + y };
 const subtract = (x, y) => { return x - y };
 const multiply = (x, y) => { return x * y };
@@ -39,12 +42,12 @@ const operate = (operation, x, y) => {
 
 };
 
-const resetValues = () => {
-    leftOperand = "";
+const clear = () => {
+    leftOperand = "0";
     rightOperand = "";
     operator = "";
     display = "";
-    screenDisplay.textContent = "0";
+    updateDisplay()
     return
 }
 
@@ -69,6 +72,14 @@ decimalButton.addEventListener('click', () => {
     addDecimal();
 });
 
+clearEntryButton.addEventListener('click', () => {
+    clearEntry();
+});
+
+clearButton.addEventListener('click', () => {
+    clear();
+});
+
 const registerInput = (buttonValue) => {
     if (operationList.includes(buttonValue)) {
         if (rightOperand) {
@@ -76,14 +87,15 @@ const registerInput = (buttonValue) => {
             rightOperand = "";
         }
         operator = buttonValue;
-        screenDisplay.textContent = `${leftOperand} ${operator} ${rightOperand}`;
+        updateDisplay()
         return
     }
     try {
-        const numericValue = parseInt(buttonValue);
-        if (!operator) leftOperand += numericValue.toString();
-        else rightOperand += numericValue.toString();
-        screenDisplay.textContent = `${leftOperand} ${operator} ${rightOperand}`;
+        if (!operator) {
+            leftOperand === "0" ? leftOperand = buttonValue : leftOperand += buttonValue;
+        }
+        else rightOperand === "0" ? rightOperand = buttonValue : rightOperand += buttonValue;
+        updateDisplay()
     }
     catch {
         screenDisplay.textContent = `ERROR`;
@@ -100,7 +112,7 @@ const evaluate = () => {
     }
     rightOperand = "";
     operator = "";
-    screenDisplay.textContent = `${leftOperand}`;
+    updateDisplay()
     return
 }
 
@@ -114,7 +126,20 @@ const addDecimal = () => {
             leftOperand += ".";
         }
     }
-    screenDisplay.textContent = `${leftOperand} ${operator} ${rightOperand}`;
+    updateDisplay()
 }
 
-resetValues();
+const clearEntry = () => {
+    if (rightOperand) {
+        rightOperand = rightOperand.slice(0, -1);
+    }
+    else {
+        leftOperand = leftOperand.slice(0, -1);
+    }
+    updateDisplay()
+}
+
+const updateDisplay = () => {
+    screenDisplay.textContent = `${leftOperand} ${operator} ${rightOperand}`;
+}
+clear();
