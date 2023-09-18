@@ -12,6 +12,8 @@ const operators = Array.from(document.getElementsByClassName('function-button'))
 const evaluateButton = document.getElementsByClassName('evaluate-button')[0];
 const decimalButton = document.getElementsByClassName('decimal-button')[0];
 
+const clearEntryButton = document.getElementById('clear-entry');
+
 const add = (x, y) => { return x + y };
 const subtract = (x, y) => { return x - y };
 const multiply = (x, y) => { return x * y };
@@ -39,7 +41,7 @@ const operate = (operation, x, y) => {
 
 };
 
-const resetValues = () => {
+const clear = () => {
     leftOperand = "";
     rightOperand = "";
     operator = "";
@@ -67,6 +69,10 @@ evaluateButton.addEventListener('click', () => {
 
 decimalButton.addEventListener('click', () => {
     addDecimal();
+});
+
+clearEntryButton.addEventListener('click', () => {
+    clearEntry();
 });
 
 const registerInput = (buttonValue) => {
@@ -117,4 +123,14 @@ const addDecimal = () => {
     screenDisplay.textContent = `${leftOperand} ${operator} ${rightOperand}`;
 }
 
-resetValues();
+const clearEntry = () => {
+    if (rightOperand) {
+        rightOperand = rightOperand.slice(0, -1);
+    }
+    else {
+        leftOperand = leftOperand.slice(0, -1);
+    }
+    screenDisplay.textContent = `${leftOperand} ${operator} ${rightOperand}`;
+}
+
+clear();
