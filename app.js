@@ -13,6 +13,7 @@ const evaluateButton = document.getElementsByClassName('evaluate-button')[0];
 const decimalButton = document.getElementsByClassName('decimal-button')[0];
 
 const clearEntryButton = document.getElementById('clear-entry');
+const clearButton = document.getElementById('clear');
 
 const add = (x, y) => { return x + y };
 const subtract = (x, y) => { return x - y };
@@ -73,6 +74,10 @@ decimalButton.addEventListener('click', () => {
 
 clearEntryButton.addEventListener('click', () => {
     clearEntry();
+});
+
+clearButton.addEventListener('click', () => {
+    clear();
 });
 
 const registerInput = (buttonValue) => {
