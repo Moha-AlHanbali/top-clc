@@ -134,7 +134,7 @@ const clearEntry = () => {
         rightOperand = rightOperand.slice(0, -1);
     }
     else {
-        leftOperand = leftOperand.slice(0, -1);
+        leftOperand.slice(0, -1) === "" ? leftOperand = "0" : leftOperand = leftOperand.slice(0, -1);
     }
     updateDisplay()
 }
