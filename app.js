@@ -3,7 +3,7 @@
 let leftOperand = "";
 let rightOperand = "";
 let operator = "";
-let display = "";
+let errorFlag = false;
 
 const operationList = ["+", "-", "*", "/"];
 const screenDisplay = document.getElementsByClassName('calculator-screen')[0];
@@ -18,7 +18,13 @@ const clearButton = document.getElementById('clear');
 const add = (x, y) => { return x + y };
 const subtract = (x, y) => { return x - y };
 const multiply = (x, y) => { return x * y };
-const divide = (x, y) => { return x / y };
+const divide = (x, y) => {
+    if (y != "0") return x / y
+    else {
+        errorFlag = true;
+        screenDisplay.textContent = "ERROR";
+    }
+};
 
 const operate = (operation, x, y) => {
     x = Number(x);
@@ -46,7 +52,7 @@ const clear = () => {
     leftOperand = "0";
     rightOperand = "";
     operator = "";
-    display = "";
+    errorFlag = false;
     updateDisplay()
     return
 }
@@ -81,6 +87,8 @@ clearButton.addEventListener('click', () => {
 });
 
 const registerInput = (buttonValue) => {
+    if (errorFlag) return;
+
     if (operationList.includes(buttonValue)) {
         if (rightOperand) {
             leftOperand = operate(operator, leftOperand, rightOperand);
@@ -98,15 +106,15 @@ const registerInput = (buttonValue) => {
         updateDisplay()
     }
     catch {
+        errorFlag= true;
         screenDisplay.textContent = `ERROR`;
-        leftOperand = "";
-        rightOperand = "";
-        operator = "";
     }
     return
 }
 
 const evaluate = () => {
+    if (errorFlag) return;
+
     if (rightOperand) {
         leftOperand = operate(operator, leftOperand, rightOperand);
     }
@@ -117,6 +125,8 @@ const evaluate = () => {
 }
 
 const addDecimal = () => {
+    if (errorFlag) return;
+
     if (operator) {
         if (!rightOperand.includes(".")) {
             rightOperand += ".";
@@ -130,6 +140,8 @@ const addDecimal = () => {
 }
 
 const clearEntry = () => {
+    if (errorFlag) return;
+
     if (rightOperand) {
         rightOperand = rightOperand.slice(0, -1);
     }
