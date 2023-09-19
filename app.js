@@ -8,10 +8,10 @@ let display = "";
 const operationList = ["+", "-", "*", "/"];
 const screenDisplay = document.getElementsByClassName('calculator-screen')[0];
 const numbers = Array.from(document.getElementsByClassName('number-button'));
-const operators = Array.from(document.getElementsByClassName('function-button'));
-const evaluateButton = document.getElementsByClassName('evaluate-button')[0];
-const decimalButton = document.getElementsByClassName('decimal-button')[0];
+const operators = Array.from(document.getElementsByClassName('operation-button'));
 
+const decimalButton = document.getElementById('decimal-button');
+const evaluateButton = document.getElementById('evaluate-button');
 const clearEntryButton = document.getElementById('clear-entry');
 const clearButton = document.getElementById('clear');
 
