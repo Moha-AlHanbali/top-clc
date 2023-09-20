@@ -106,7 +106,7 @@ const registerInput = (buttonValue) => {
         updateDisplay()
     }
     catch {
-        errorFlag= true;
+        errorFlag = true;
         screenDisplay.textContent = `ERROR`;
     }
     return
@@ -154,4 +154,15 @@ const clearEntry = () => {
 const updateDisplay = () => {
     screenDisplay.textContent = `${leftOperand} ${operator} ${rightOperand}`;
 }
+
+
+document.addEventListener('keydown', function (event) {
+    if (/^[0-9+\-*/]$/.test(event.key)) {
+        registerInput(event.key);
+    }
+    if (event.key === ".") addDecimal();
+    if (event.key === "Backspace") clearEntry();
+    if (event.key === "Enter") evaluate();
+});
+
 clear();
