@@ -88,7 +88,7 @@ clearButton.addEventListener('click', () => {
 
 const registerInput = (buttonValue) => {
     if (errorFlag) return;
-
+    if (`${leftOperand} ${operator} ${rightOperand}`.length > 10) return; // Lazy constraint for consistent display 
     if (operationList.includes(buttonValue)) {
         if (rightOperand) {
             leftOperand = operate(operator, leftOperand, rightOperand);

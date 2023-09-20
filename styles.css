@@ -34,20 +34,41 @@ img {
   height: auto;
 }
 
+.page-title {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  color: #2c2e30; 
+  text-align: center;
+  padding: 10px 0; 
+  z-index: 1000; 
+}
+
+.page-title h1 {
+  margin: 0;
+  padding: 0;
+  font-size: 72px;
+}
+
 .main {
   display: flex;
   align-items: center;
   justify-content: center;
   min-height: 100vh;
+  background-color: #d4d4d4;
+
 }
 
 .calculator-container {
-  padding: 2.5%;
+  padding: 2.5% 1.5% 2.5% 1.5%;
   background-color: #555555;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5); 
+
 }
 
 .calculator-buttons {
@@ -63,21 +84,45 @@ img {
   color: #333;
   font-size: 72px;
   width: 100%;
-  text-align:  left;
+  text-align: left;
   padding: 2%;
+  box-shadow: 0px 0px 10px rgba(59, 59, 57, 0.5); 
+
 }
 
 .button {
   font-size: 24px;
   padding: 20px 30px;
+  color: #fff;
+  box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.3); 
+
 }
 
-
-#evaluate-button {
-  font-size: 28px;
-  grid-column: span 2;
-}
 
 #zero-button {
+  grid-column: span 2;
+
+}
+
+.number-button {
+  background-color: #2c2e30;
+}
+
+.function-button {
+  background-color: #5a5e63;
+}
+
+#clear {
+  background-color: #792d2d;
+}
+
+#clear-entry {
+  background-color: #5a5e63;
+}
+
+#evaluate-button {
+  background-color: #792d2d;
+  font-size: 28px;
   grid-row: span 2;
+
 }
