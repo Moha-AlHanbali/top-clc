@@ -15,37 +15,36 @@ const evaluateButton = document.getElementById('evaluate-button');
 const clearEntryButton = document.getElementById('clear-entry');
 const clearButton = document.getElementById('clear');
 
-const add = (x, y) => { return x + y };
-const subtract = (x, y) => { return x - y };
-const multiply = (x, y) => { return x * y };
-const divide = (x, y) => {
-    if (y != "0") return x / y
-    else {
-        errorFlag = true;
-        screenDisplay.textContent = "ERROR";
-    }
-};
-
 const operate = (operation, x, y) => {
     x = Number(x);
     y = Number(y);
+    let result = 0;
     switch (operation) {
         case "+":
-            return add(x, y).toString();
+            result = x + y;
+            break;
 
         case "-":
-            return subtract(x, y).toString();
+            result = x - y;
+            break;
 
         case "*":
-            return multiply(x, y).toString();
+            result = x * y;
+            break;
 
         case "/":
-            return divide(x, y).toString();
+            if (y != "0") result = x / y
+            else {
+                errorFlag = true;
+                screenDisplay.textContent = "ERROR";
+            }
+            break;
 
         default:
-            return
+            break;
     };
 
+    return result % 1 === 0 ? result.toString() : result.toFixed(2);
 };
 
 const clear = () => {
@@ -106,7 +105,7 @@ const registerInput = (buttonValue) => {
         updateDisplay()
     }
     catch {
-        errorFlag= true;
+        errorFlag = true;
         screenDisplay.textContent = `ERROR`;
     }
     return
@@ -154,4 +153,18 @@ const clearEntry = () => {
 const updateDisplay = () => {
     screenDisplay.textContent = `${leftOperand} ${operator} ${rightOperand}`;
 }
+
+
+document.addEventListener('keydown', function (event) {
+    if (/^[0-9+\-*/]$/.test(event.key)) {
+        registerInput(event.key);
+    }
+    if (event.key === ".") addDecimal();
+    if (event.key === "Backspace") clearEntry();
+    if (event.key === "Enter") {
+        event.preventDefault();
+        evaluate();
+    }
+});
+
 clear();
