@@ -162,7 +162,10 @@ document.addEventListener('keydown', function (event) {
     }
     if (event.key === ".") addDecimal();
     if (event.key === "Backspace") clearEntry();
-    if (event.key === "Enter") evaluate();
+    if (event.key === "Enter") {
+        event.preventDefault();
+        evaluate();
+    }
 });
 
 clear();
