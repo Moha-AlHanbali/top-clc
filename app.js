@@ -36,7 +36,7 @@ const operate = (operation, x, y) => {
             if (y != "0") result = x / y
             else {
                 errorFlag = true;
-                screenDisplay.textContent = "ERROR";
+                return "ERROR";
             }
             break;
 
@@ -77,7 +77,8 @@ const registerInput = (buttonValue) => {
     }
     catch {
         errorFlag = true;
-        screenDisplay.textContent = `ERROR`;
+        screenDisplay.textContent = "ERROR";
+        return "ERROR";
     }
     return
 }
