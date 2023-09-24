@@ -56,35 +56,6 @@ const clear = () => {
     return
 }
 
-
-numbers.forEach(numberButton => {
-    numberButton.addEventListener('click', (e) => {
-        registerInput(e.target.value);
-    });
-});
-
-operators.forEach(numberButton => {
-    numberButton.addEventListener('click', (e) => {
-        registerInput(e.target.value);
-    });
-});
-
-evaluateButton.addEventListener('click', () => {
-    evaluate();
-});
-
-decimalButton.addEventListener('click', () => {
-    addDecimal();
-});
-
-clearEntryButton.addEventListener('click', () => {
-    clearEntry();
-});
-
-clearButton.addEventListener('click', () => {
-    clear();
-});
-
 const registerInput = (buttonValue) => {
     if (errorFlag) return;
     if (`${leftOperand} ${operator} ${rightOperand}`.length > 10) return; // Lazy constraint for consistent display 
@@ -165,6 +136,35 @@ document.addEventListener('keydown', function (event) {
         event.preventDefault();
         evaluate();
     }
+});
+
+
+numbers.forEach(numberButton => {
+    numberButton.addEventListener('click', (e) => {
+        registerInput(e.target.value);
+    });
+});
+
+operators.forEach(numberButton => {
+    numberButton.addEventListener('click', (e) => {
+        registerInput(e.target.value);
+    });
+});
+
+evaluateButton.addEventListener('click', () => {
+    evaluate();
+});
+
+decimalButton.addEventListener('click', () => {
+    addDecimal();
+});
+
+clearEntryButton.addEventListener('click', () => {
+    clearEntry();
+});
+
+clearButton.addEventListener('click', () => {
+    clear();
 });
 
 clear();
